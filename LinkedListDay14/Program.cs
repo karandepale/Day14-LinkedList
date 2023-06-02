@@ -2,8 +2,6 @@
 
 namespace LinkedListDay14
 {
-    
-
     public class LinkedList
     {
         public Node Head { get; set; }
@@ -35,7 +33,13 @@ namespace LinkedListDay14
             }
         }
 
-
+        public void Pop()
+        {
+            if (Head != null)
+            {
+                Head = Head.Next;
+            }
+        }
 
         public void Display()
         {
@@ -61,6 +65,8 @@ namespace LinkedListDay14
             linkedList.AddNode(56);
             linkedList.AddNode(30);
             linkedList.AddNode(70);
+
+            linkedList.Pop();
 
             linkedList.Display();
         }
