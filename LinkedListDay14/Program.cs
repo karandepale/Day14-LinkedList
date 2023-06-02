@@ -24,10 +24,13 @@ namespace LinkedListDay14
             else
             {
                 Node current = Head;
-                while (current.Next != null)
+
+                while (current.Next != null && current.Next.Data < data)
                 {
                     current = current.Next;
                 }
+
+                newNode.Next = current.Next;
                 current.Next = newNode;
             }
         }
