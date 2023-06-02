@@ -23,23 +23,15 @@ namespace LinkedListDay14
             }
             else
             {
-                if (Head.Next == null)
+                Node current = Head;
+                while (current.Next != null)
                 {
-                    newNode.Next = Head;
-                    Head = newNode;
+                    current = current.Next;
                 }
-                else
-                {
-                    Node current = Head;
-                    while (current.Next != null)
-                    {
-                        current = current.Next;
-                    }
-                    newNode.Next = current;
-                    Head = newNode;
-                }
+                current.Next = newNode;
             }
         }
+
 
 
         public void Display()
