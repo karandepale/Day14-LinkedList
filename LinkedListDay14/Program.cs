@@ -41,6 +41,23 @@ namespace LinkedListDay14
             }
         }
 
+        public void PopLast()
+        {
+            if (Head == null || Head.Next == null)
+            {
+                Head = null;
+                return;
+            }
+
+            Node current = Head;
+            while (current.Next.Next != null)
+            {
+                current = current.Next;
+            }
+
+            current.Next = null;
+        }
+
         public void Display()
         {
             Node current = Head;
@@ -66,7 +83,7 @@ namespace LinkedListDay14
             linkedList.AddNode(30);
             linkedList.AddNode(70);
 
-            linkedList.Pop();
+            linkedList.PopLast();
 
             linkedList.Display();
         }
