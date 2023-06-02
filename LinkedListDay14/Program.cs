@@ -2,30 +2,43 @@
 
 namespace LinkedListDay14
 {
-    public class LinkedList
+    public class Node<T> where T : IComparable<T>
     {
-        public Node Head { get; set; }
+        public T Data { get; set; }
+        public Node<T> Next { get; set; }
+
+        public Node(T data)
+        {
+            Data = data;
+            Next = null;
+        }
+    }
+
+    public class SortedLinkedList<T> where T : IComparable<T>
+    {
+        public Node<T> Head { get; set; }
         public int Size { get; private set; }
 
-        public LinkedList()
+        public SortedLinkedList()
         {
             Head = null;
             Size = 0;
         }
 
-        public void AddNode(int data)
+        public void AddNode(T data)
         {
-            Node newNode = new Node(data);
+            Node<T> newNode = new Node<T>(data);
 
-            if (Head == null)
+            if (Head == null || data.CompareTo(Head.Data) < 0)
             {
+                newNode.Next = Head;
                 Head = newNode;
             }
             else
             {
-                Node current = Head;
+                Node<T> current = Head;
 
-                while (current.Next != null && current.Next.Data < data)
+                while (current.Next != null && data.CompareTo(current.Next.Data) >= 0)
                 {
                     current = current.Next;
                 }
@@ -37,96 +50,9 @@ namespace LinkedListDay14
             Size++;
         }
 
-        public void Pop()
-        {
-            if (Head != null)
-            {
-                Head = Head.Next;
-                Size--;
-            }
-        }
-
-        public void PopLast()
-        {
-            if (Head == null || Head.Next == null)
-            {
-                Head = null;
-                Size = 0;
-                return;
-            }
-
-            Node current = Head;
-            while (current.Next.Next != null)
-            {
-                current = current.Next;
-            }
-
-            current.Next = null;
-            Size--;
-        }
-
-        public Node Search(int key)
-        {
-            Node current = Head;
-
-            while (current != null)
-            {
-                if (current.Data == key)
-                {
-                    return current;
-                }
-
-                current = current.Next;
-            }
-
-            return null;
-        }
-
-        public void InsertAfter(int key, int data)
-        {
-            Node searchResult = Search(key);
-
-            if (searchResult != null)
-            {
-                Node newNode = new Node(data);
-                newNode.Next = searchResult.Next;
-                searchResult.Next = newNode;
-                Size++;
-            }
-        }
-
-        public void DeleteNode(int key)
-        {
-            if (Head == null)
-                return;
-
-            if (Head.Data == key)
-            {
-                Head = Head.Next;
-                Size--;
-                return;
-            }
-
-            Node current = Head;
-            Node previous = null;
-
-            while (current != null)
-            {
-                if (current.Data == key)
-                {
-                    previous.Next = current.Next;
-                    Size--;
-                    return;
-                }
-
-                previous = current;
-                current = current.Next;
-            }
-        }
-
         public void Display()
         {
-            Node current = Head;
+            Node<T> current = Head;
 
             while (current != null)
             {
@@ -143,29 +69,14 @@ namespace LinkedListDay14
         {
             Console.WriteLine("Linked list program ....");
 
-            LinkedList linkedList = new LinkedList();
+            SortedLinkedList<int> sortedLinkedList = new SortedLinkedList<int>();
 
-            linkedList.AddNode(56);
-            linkedList.AddNode(30);
-            linkedList.AddNode(40);
-            linkedList.AddNode(70);
+            sortedLinkedList.AddNode(56);
+            sortedLinkedList.AddNode(30);
+            sortedLinkedList.AddNode(40);
+            sortedLinkedList.AddNode(70);
 
-            linkedList.Display();
-
-            int searchKey = 40;
-            Node searchResult = linkedList.Search(searchKey);
-            if (searchResult != null)
-            {
-                Console.WriteLine($"Node with key {searchKey} found.");
-                linkedList.DeleteNode(searchKey);
-                linkedList.Display();
-            }
-            else
-            {
-                Console.WriteLine($"Node with key {searchKey} not found.");
-            }
-
-            Console.WriteLine($"Linked List size: {linkedList.Size}");
+            sortedLinkedList.Display();
         }
     }
 }
