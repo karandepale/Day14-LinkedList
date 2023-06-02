@@ -75,6 +75,18 @@ namespace LinkedListDay14
             return null;
         }
 
+        public void InsertAfter(int key, int data)
+        {
+            Node searchResult = Search(key);
+
+            if (searchResult != null)
+            {
+                Node newNode = new Node(data);
+                newNode.Next = searchResult.Next;
+                searchResult.Next = newNode;
+            }
+        }
+
         public void Display()
         {
             Node current = Head;
@@ -100,8 +112,6 @@ namespace LinkedListDay14
             linkedList.AddNode(30);
             linkedList.AddNode(70);
 
-            linkedList.PopLast();
-
             linkedList.Display();
 
             int searchKey = 30;
@@ -109,6 +119,8 @@ namespace LinkedListDay14
             if (searchResult != null)
             {
                 Console.WriteLine($"Node with key {searchKey} found.");
+                linkedList.InsertAfter(searchKey, 40);
+                linkedList.Display();
             }
             else
             {
