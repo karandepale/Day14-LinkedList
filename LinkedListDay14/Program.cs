@@ -58,6 +58,23 @@ namespace LinkedListDay14
             current.Next = null;
         }
 
+        public Node Search(int key)
+        {
+            Node current = Head;
+
+            while (current != null)
+            {
+                if (current.Data == key)
+                {
+                    return current;
+                }
+
+                current = current.Next;
+            }
+
+            return null;
+        }
+
         public void Display()
         {
             Node current = Head;
@@ -86,6 +103,17 @@ namespace LinkedListDay14
             linkedList.PopLast();
 
             linkedList.Display();
+
+            int searchKey = 30;
+            Node searchResult = linkedList.Search(searchKey);
+            if (searchResult != null)
+            {
+                Console.WriteLine($"Node with key {searchKey} found.");
+            }
+            else
+            {
+                Console.WriteLine($"Node with key {searchKey} not found.");
+            }
         }
     }
 }
